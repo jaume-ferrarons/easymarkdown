@@ -11,16 +11,65 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "onCommand:extension.bold",
+        "onCommand:extension.italics",
+        "onCommand:extension.strikethrough",
+        "onCommand:extension.link",
+        "onCommand:extension.item"
     ],
     "main": "./out/extension",
     "contributes": {
         "commands": [
             {
-                "command": "extension.sayHello",
-                "title": "Hello World"
+                "command": "extension.bold",
+                "title": " Bold "
+            },
+            {
+                "command": "extension.italics",
+                "title": " Italics "
+            },
+            {
+                "command": "extension.strikethrough",
+                "title": " Strikethrough "
+            },
+            {
+                "command": "extension.link",
+                "title": " Link "
+            },
+            {
+                "command": "extension.item",
+                "title": " Item(s) "
             }
-        ]
+        ],
+        "menus": {
+            "editor/title": [
+                {
+                    "when": "resourceLangId == markdown",
+                    "command": "extension.bold",
+                    "group": "navigation"
+                },
+                {
+                    "when": "resourceLangId == markdown",
+                    "command": "extension.italics",
+                    "group": "navigation"
+                },
+                {
+                    "when": "resourceLangId == markdown",
+                    "command": "extension.strikethrough",
+                    "group": "navigation"
+                },
+                {
+                    "when": "resourceLangId == markdown",
+                    "command": "extension.link",
+                    "group": "navigation"
+                },
+                {
+                    "when": "resourceLangId == markdown",
+                    "command": "extension.item",
+                    "group": "navigation"
+                }
+            ]
+        }
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
