@@ -27,7 +27,7 @@ function toStrikethrough(editor: vscode.TextEditor, selection: vscode.Selection)
 function toLink(editor: vscode.TextEditor, selection: vscode.Selection): void {
     const text = editor.document.getText(selection);
     editor.edit((edit) => {
-        edit.replace(selection, `[${text}](https://url.here)`);
+        edit.replace(selection, `[${text}](http://url.here)`);
     });
 }
 
