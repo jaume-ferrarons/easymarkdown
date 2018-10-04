@@ -3,7 +3,8 @@
     "displayName": "EasyMarkdown",
     "description": "A GUI to edit Markdown in Visual Studio Code",
     "version": "0.0.1",
-    "publisher": "ckroxigor",
+    "publisher": "jaume-ferrarons",
+    "repository": "https://github.com/jaume-ferrarons/easymarkdown.git",
     "engines": {
         "vscode": "^1.27.0"
     },
