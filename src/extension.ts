@@ -34,9 +34,16 @@ function toLink(editor: vscode.TextEditor, selection: vscode.Selection): void {
 function toListItem(editor: vscode.TextEditor, selection: vscode.Selection): void {
     const startLine = editor.selection.start.line;
     const endLine = editor.selection.end.line;
+    let add = !editor.document.lineAt(startLine).text.startsWith('* ');
     editor.edit((edit) => {
-        for (let line = startLine; line <= endLine; line++) {
-            edit.insert(new vscode.Position(line, 0), '* ');
+        for (let nLine = startLine; nLine <= endLine; nLine++) {
+            const line = editor.document.lineAt(nLine).text;
+            const isItem = line.startsWith('* ');
+            if (add && !isItem) {
+                edit.insert(new vscode.Position(nLine, 0), '* ');
+            } else if (!add && isItem) {
+                edit.delete(new vscode.Range(new vscode.Position(nLine, 0), new vscode.Position(nLine, 2)));
+            }
         }
     });
 }
@@ -64,7 +71,7 @@ export function activate(context: vscode.ExtensionContext) {
     const commands = [
         { name: 'bold', handler: toBold },
         { name: 'italics', handler: toItalics },
-        { name: 'strikethrough', handler: toStrikethrough},
+        { name: 'strikethrough', handler: toStrikethrough },
         { name: 'link', handler: toLink },
         { name: 'item', handler: toListItem }
     ];
