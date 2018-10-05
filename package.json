@@ -2,7 +2,7 @@
     "name": "easymarkdown",
     "displayName": "EasyMarkdown",
     "description": "A GUI to edit Markdown in Visual Studio Code",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "publisher": "jaume-ferrarons",
     "repository": "https://github.com/jaume-ferrarons/easymarkdown.git",
     "engines": {
@@ -13,7 +13,7 @@
     ],
     "activationEvents": [
         "onCommand:extension.bold",
-        "onCommand:extension.italics",
+        "onCommand:extension.italic",
         "onCommand:extension.strikethrough",
         "onCommand:extension.link",
         "onCommand:extension.item"
@@ -23,23 +23,34 @@
         "commands": [
             {
                 "command": "extension.bold",
-                "title": " Bold "
+                "title": "Bold",
+                "icon": "images/icons/bold.png",
+                "category": "Markdown"
             },
             {
-                "command": "extension.italics",
-                "title": " Italics "
+                "command": "extension.italic",
+                "title": "Italic",
+                "icon": "images/icons/italic.png",
+                "category": "Markdown"
+
             },
             {
                 "command": "extension.strikethrough",
-                "title": " Strikethrough "
+                "title": "Strikethrough",
+                "icon": "images/icons/strikethrough.png",
+                "category": "Markdown"
             },
             {
                 "command": "extension.link",
-                "title": " Link "
+                "title": "Link",
+                "icon": "images/icons/insert_link.png",
+                "category": "Markdown"
             },
             {
                 "command": "extension.item",
-                "title": " Item(s) "
+                "title": "Bullet list",
+                "icon": "images/icons/list_bulleted.png",
+                "category": "Markdown"
             }
         ],
         "menus": {
@@ -51,7 +62,7 @@
                 },
                 {
                     "when": "resourceLangId == markdown",
-                    "command": "extension.italics",
+                    "command": "extension.italic",
                     "group": "navigation"
                 },
                 {

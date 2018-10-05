@@ -10,7 +10,7 @@ function toBold(editor: vscode.TextEditor, selection: vscode.Selection): void {
     });
 }
 
-function toItalics(editor: vscode.TextEditor, selection: vscode.Selection): void {
+function toitalic(editor: vscode.TextEditor, selection: vscode.Selection): void {
     const text = editor.document.getText(selection);
     editor.edit((edit) => {
         edit.replace(selection, `*${text}*`);
@@ -70,7 +70,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     const commands = [
         { name: 'bold', handler: toBold },
-        { name: 'italics', handler: toItalics },
+        { name: 'italic', handler: toitalic },
         { name: 'strikethrough', handler: toStrikethrough },
         { name: 'link', handler: toLink },
         { name: 'item', handler: toListItem }
