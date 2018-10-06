@@ -57,27 +57,27 @@
                 {
                     "when": "resourceLangId == markdown",
                     "command": "extension.bold",
-                    "group": "navigation"
+                    "group": "navigation@1"
                 },
                 {
                     "when": "resourceLangId == markdown",
                     "command": "extension.italic",
-                    "group": "navigation"
+                    "group": "navigation@2"
                 },
                 {
                     "when": "resourceLangId == markdown",
                     "command": "extension.strikethrough",
-                    "group": "navigation"
+                    "group": "navigation@3"
                 },
                 {
                     "when": "resourceLangId == markdown",
                     "command": "extension.link",
-                    "group": "navigation"
+                    "group": "navigation@4"
                 },
                 {
                     "when": "resourceLangId == markdown",
                     "command": "extension.item",
-                    "group": "navigation"
+                    "group": "navigation@5"
                 }
             ]
         }
