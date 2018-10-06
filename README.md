@@ -10,12 +10,15 @@ This extension provides a GUI to easily edit **Markdown**, specially useful for 
 So far this extension provides easy access to basic **Markdown** commands and provides easy access to the following functionalities:
 * Bold
 * Italic
-* Strikethrough
+* Strike through
 * Links
 * Bulleted list
 
 ## Change log
-* 0.1.0:
+* 0.3.0:
+    * Sort icons
+    * Basic toggle for bold italic and strike through
+* 0.2.0:
     * Add icons
     * Smarter bulleted list: now toggles the list items.
 

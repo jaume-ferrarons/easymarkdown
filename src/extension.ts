@@ -2,39 +2,31 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import { makeToggle } from './utils';
 
-function toBold(editor: vscode.TextEditor, selection: vscode.Selection): void {
-    const text = editor.document.getText(selection);
-    editor.edit((edit) => {
-        edit.replace(selection, `**${text}**`);
-    });
+function toggleBold(editor: vscode.TextEditor, selection: vscode.Selection): void {
+    makeToggle(editor, selection, '**');
 }
 
-function toitalic(editor: vscode.TextEditor, selection: vscode.Selection): void {
-    const text = editor.document.getText(selection);
-    editor.edit((edit) => {
-        edit.replace(selection, `*${text}*`);
-    });
+function toggleItalic(editor: vscode.TextEditor, selection: vscode.Selection): void {
+    makeToggle(editor, selection, '*');
 }
 
-function toStrikethrough(editor: vscode.TextEditor, selection: vscode.Selection): void {
-    const text = editor.document.getText(selection);
-    editor.edit((edit) => {
-        edit.replace(selection, `~~${text}~~`);
-    });
+function toggleStrikethrough(editor: vscode.TextEditor, selection: vscode.Selection): void {
+    makeToggle(editor, selection, '~~');
 }
 
 function toLink(editor: vscode.TextEditor, selection: vscode.Selection): void {
     const text = editor.document.getText(selection);
     editor.edit((edit) => {
-        edit.replace(selection, `[${text}](http://url.here)`);
+        edit.replace(selection, `[${text || 'link description'}](http://url.here)`);
     });
 }
 
 function toListItem(editor: vscode.TextEditor, selection: vscode.Selection): void {
     const startLine = editor.selection.start.line;
     const endLine = editor.selection.end.line;
-    let add = !editor.document.lineAt(startLine).text.startsWith('* ');
+    const add = !editor.document.lineAt(startLine).text.startsWith('* ');
     editor.edit((edit) => {
         for (let nLine = startLine; nLine <= endLine; nLine++) {
             const line = editor.document.lineAt(nLine).text;
@@ -69,9 +61,9 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable);
 
     const commands = [
-        { name: 'bold', handler: toBold },
-        { name: 'italic', handler: toitalic },
-        { name: 'strikethrough', handler: toStrikethrough },
+        { name: 'bold', handler: toggleBold },
+        { name: 'italic', handler: toggleItalic },
+        { name: 'strikethrough', handler: toggleStrikethrough },
         { name: 'link', handler: toLink },
         { name: 'item', handler: toListItem }
     ];
@@ -79,31 +71,13 @@ export function activate(context: vscode.ExtensionContext) {
     commands.forEach(command => {
         context.subscriptions.push(vscode.commands.registerCommand(`extension.${command.name}`, () => {
             let editor = vscode.window.activeTextEditor;
-            if (!editor) {
+            if (editor === undefined) {
                 return; // No open text editor
             }
             let selection = editor.selection;
             command.handler(editor, selection);
         }));
     });
-
-    // context.subscriptions.push(vscode.commands.registerCommand('extension.bold', () => {
-    //     // The code you place here will be executed every time your command is executed
-
-    //     // Display a message box to the user
-    //     vscode.window.showInformationMessage('Hello World!');
-
-    //     let editor = vscode.window.activeTextEditor;
-    //     if (!editor) {
-    //         return; // No open text editor
-    //     }
-
-    //     let selection = editor.selection;
-    //     let text = editor.document.getText(selection);
-    //     editor.edit((edit) => {
-    //         edit.replace(selection, `**${text}**`)
-    //     });
-    // }));
 }
 
 // this method is called when your extension is deactivated
