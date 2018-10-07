@@ -2,8 +2,13 @@
 
 import * as vscode from 'vscode';
 
-
-export function makeToggle(editor: vscode.TextEditor, selection: vscode.Selection, pattern: string, exclude?: [string]): void {
+/**
+ * Toggles the markdown pattern surrounding the selected word
+ * @param editor Instance of the current editor
+ * @param selection Selection in the text to process
+ * @param pattern Patter to add or remove
+ */
+export function makeToggle(editor: vscode.TextEditor, selection: vscode.Selection, pattern: string): void {
     const text = editor.document.getText(selection);
     const { character: startChar, line: startLine } = selection.start;
     const { character: endChar, line: endLine } = selection.end;

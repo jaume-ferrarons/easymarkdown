@@ -16,7 +16,8 @@
         "onCommand:extension.italic",
         "onCommand:extension.strikethrough",
         "onCommand:extension.link",
-        "onCommand:extension.item"
+        "onCommand:extension.item",
+        "onCommand:extension.numberedList"
     ],
     "main": "./out/extension",
     "contributes": {
@@ -50,6 +51,12 @@
                 "title": "Bullet list",
                 "icon": "images/icons/list_bulleted.png",
                 "category": "Markdown"
+            },
+            {
+                "command": "extension.numberedList",
+                "title": "Numbered list",
+                "icon": "images/icons/list_numbered.png",
+                "category": "Markdown"
             }
         ],
         "menus": {
@@ -78,6 +85,11 @@
                     "when": "resourceLangId == markdown",
                     "command": "extension.item",
                     "group": "navigation@5"
+                },
+                {
+                    "when": "resourceLangId == markdown",
+                    "command": "extension.numberedList",
+                    "group": "navigation@6"
                 }
             ]
         }

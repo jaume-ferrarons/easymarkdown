@@ -13,8 +13,11 @@ So far this extension provides easy access to basic **Markdown** commands and pr
 * Strike through
 * Links
 * Bulleted list
+* Numbered list
 
 ## Change log
+* 0.4.0:
+    * 
 * 0.3.0:
     * Sort icons
     * Basic toggle for bold italic and strike through

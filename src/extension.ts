@@ -9,7 +9,7 @@ function toggleBold(editor: vscode.TextEditor, selection: vscode.Selection): voi
 }
 
 function toggleItalic(editor: vscode.TextEditor, selection: vscode.Selection): void {
-    makeToggle(editor, selection, '*');
+    makeToggle(editor, selection, '_');
 }
 
 function toggleStrikethrough(editor: vscode.TextEditor, selection: vscode.Selection): void {
@@ -23,9 +23,9 @@ function toLink(editor: vscode.TextEditor, selection: vscode.Selection): void {
     });
 }
 
-function toListItem(editor: vscode.TextEditor, selection: vscode.Selection): void {
-    const startLine = editor.selection.start.line;
-    const endLine = editor.selection.end.line;
+function toggleListItem(editor: vscode.TextEditor, selection: vscode.Selection): void {
+    const startLine = selection.start.line;
+    const endLine = selection.end.line;
     const add = !editor.document.lineAt(startLine).text.startsWith('* ');
     editor.edit((edit) => {
         for (let nLine = startLine; nLine <= endLine; nLine++) {
@@ -40,32 +40,44 @@ function toListItem(editor: vscode.TextEditor, selection: vscode.Selection): voi
     });
 }
 
+function toggleNumberedListItem(editor: vscode.TextEditor, selection: vscode.Selection): void {
+    const startLine = selection.start.line;
+    const endLine = selection.end.line;
+    const numberRe = /^\d+\. /;
+    const add = !numberRe.test(editor.document.lineAt(startLine).text);
+    let indexOffset = 1;
+    if (add && startLine > 0) { // Get number from previous line
+        const prevLine = editor.document.lineAt(startLine - 1).text;
+        if (numberRe.test(prevLine)) {
+            indexOffset = parseInt(prevLine.split('.', 1)[0], 10) + 1;
+        }
+    }
+    editor.edit((edit) => {
+        for (let nLine = startLine; nLine <= endLine; nLine++) {
+            const line = editor.document.lineAt(nLine).text;
+            const isItem = numberRe.test(line);
+            if (isItem) {
+                let numberLength = line.split('.', 1)[0].length;
+                edit.delete(new vscode.Range(new vscode.Position(nLine, 0), new vscode.Position(nLine, numberLength + 2)));
+            }
+            if (add) {
+                edit.insert(new vscode.Position(nLine, 0), `${nLine - startLine + indexOffset}. `);
+            }
+        }
+    });
+}
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-
-    // Use the console to output diagnostic information (console.log) and errors (console.error)
-    // This line of code will only be executed once when your extension is activated
-    console.log('Congratulations, your extension "easymarkdown" is now active!');
-
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with  registerCommand
-    // The commandId parameter must match the command field in package.json
-    let disposable = vscode.commands.registerCommand('extension.sayHello', () => {
-        // The code you place here will be executed every time your command is executed
-
-        // Display a message box to the user
-        vscode.window.showInformationMessage('Hello World!');
-    });
-
-    context.subscriptions.push(disposable);
 
     const commands = [
         { name: 'bold', handler: toggleBold },
         { name: 'italic', handler: toggleItalic },
         { name: 'strikethrough', handler: toggleStrikethrough },
         { name: 'link', handler: toLink },
-        { name: 'item', handler: toListItem }
+        { name: 'item', handler: toggleListItem },
+        { name: 'numberedList', handler: toggleNumberedListItem }
     ];
 
     commands.forEach(command => {
