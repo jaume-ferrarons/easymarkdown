@@ -17,10 +17,11 @@ So far this extension provides easy access to basic **Markdown** commands and pr
 
 ## Change log
 * 0.4.0:
-    * 
+    * Add Numbered toggle list.
+    * Change italic command from `*` to `_`.
 * 0.3.0:
-    * Sort icons
-    * Basic toggle for bold italic and strike through
+    * Sort icons.
+    * Basic toggle for bold italic and strike through.
 * 0.2.0:
     * Add icons
     * Smarter bulleted list: now toggles the list items.
