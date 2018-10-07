@@ -2,16 +2,18 @@
 
 This extension provides a GUI to easily edit **Markdown**, specially useful for those less versed on this language.
 
+![demo](images/docs/demo.gif)
+
 ## Installation
 [Install from the Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=jaume-ferrarons.easymarkdown) or by [searching within VS Code](https://code.visualstudio.com/docs/editor/extension-gallery#_search-for-an-extension).
 
 ## Features
 
 So far this extension provides easy access to basic **Markdown** commands and provides easy access to the following functionalities:
-* Bold
-* Italic
-* Strike through
-* Links
+* **Bold**
+* _Italic_
+* ~~Strike through~~
+* [Links](https://marketplace.visualstudio.com/items?itemName=jaume-ferrarons.easymarkdown)
 * Bulleted list
 * Numbered list
 
