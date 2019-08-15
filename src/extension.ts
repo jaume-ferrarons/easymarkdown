@@ -23,6 +23,22 @@ function toLink(editor: vscode.TextEditor, selection: vscode.Selection): void {
     });
 }
 
+function toTable(editor: vscode.TextEditor, selection: vscode.Selection): void {
+    const text = editor.document.getText(selection);
+    const table = text.split("\n").filter((line) => line.trim().length > 0).map((line) => {
+        return line.split(/\s\s+|\t/g);
+    });
+    const columnSizes: Array<number> = [];
+    table.forEach((row) => row.forEach((elem, index) => columnSizes[index] = Math.max(columnSizes[index] || 0, elem.length)));
+    console.log({ columnSizes });
+    const lines = table.map((row) => row.map((elem, index) => elem.padStart(columnSizes[index])).join(" | ")).map((line) => `| ${line} |`);
+    let separator = "|" + columnSizes.map((size) => "-".repeat(size + 2)).join("|") + "|";
+    lines.splice(1, 0, separator);
+    editor.edit((edit) => {
+        edit.replace(selection, lines.join("\n"));
+    });
+}
+
 function toggleListItem(editor: vscode.TextEditor, selection: vscode.Selection): void {
     const startLine = selection.start.line;
     const endLine = selection.end.line;
@@ -77,7 +93,8 @@ export function activate(context: vscode.ExtensionContext) {
         { name: 'strikethrough', handler: toggleStrikethrough },
         { name: 'link', handler: toLink },
         { name: 'item', handler: toggleListItem },
-        { name: 'numberedList', handler: toggleNumberedListItem }
+        { name: 'numberedList', handler: toggleNumberedListItem },
+        { name: 'table', handler: toTable }
     ];
 
     commands.forEach(command => {

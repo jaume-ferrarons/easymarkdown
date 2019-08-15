@@ -16,8 +16,11 @@ So far this extension provides easy access to basic **Markdown** commands and pr
 * [Links](https://marketplace.visualstudio.com/items?itemName=jaume-ferrarons.easymarkdown)
 * Bulleted list
 * Numbered list
+* Tables
 
 ## Change log
+* 0.6.0:
+    * Convert selection to table.
 * 0.4.0:
     * Add Numbered toggle list.
     * Change italic command from `*` to `_`.

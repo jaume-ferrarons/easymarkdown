@@ -17,7 +17,8 @@
         "onCommand:extension.strikethrough",
         "onCommand:extension.link",
         "onCommand:extension.item",
-        "onCommand:extension.numberedList"
+        "onCommand:extension.numberedList",
+        "onCommand:extension.table"
     ],
     "main": "./out/extension",
     "contributes": {
@@ -57,6 +58,12 @@
                 "title": "Numbered list",
                 "icon": "images/icons/list_numbered.png",
                 "category": "Markdown"
+            },
+            {
+                "command": "extension.table",
+                "title": "Table",
+                "icon": "images/icons/grid.png",
+                "category": "Markdown"
             }
         ],
         "menus": {
@@ -90,6 +97,11 @@
                     "when": "resourceLangId == markdown",
                     "command": "extension.numberedList",
                     "group": "navigation@6"
+                },
+                {
+                    "when": "resourceLangId == markdown",
+                    "command": "extension.table",
+                    "group": "navigation@4"
                 }
             ]
         }
