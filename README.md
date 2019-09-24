@@ -19,6 +19,8 @@ So far this extension provides easy access to basic **Markdown** commands and pr
 * Tables
 
 ## Change log
+* 0.6.1:
+    * Add icon
 * 0.6.0:
     * Convert selection to table.
 * 0.4.0:
